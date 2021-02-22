@@ -1,30 +1,22 @@
 <template>
   <Page>
-    <StackLayout>
-      <Button text="button1"></Button>
-      <Button text="button2" @tap="onTapButton()"></Button>
-      <Button text="button3"></Button>
+    <StackLayout :key="hour + minute">
+      <TimePicker @loaded="timePickerLoaded" @timeChange="onTimeChange" />
     </StackLayout>
   </Page>
 </template>
 
 <script>
 export default {
-  computed: {
-    message() {
-      return "Blank {N}-Vue app";
-    }
-  },
   methods: {
-    onTapButton: function() {
-      confirm({
-        title: "the title",
-        message: "the message",
-        okButtonText: "It is ok",
-        cancelButtonText: "No not ok"
-      }).then(result => {
-        console.log("result", result);
-      });
+    timePickerLoaded: function(args) {
+      var timepicker = args.object;
+      timepicker.ios.datePickerMode = 3;
+    },
+    onTimeChange: function(args) {
+      const hour = args.object.hour;
+      const minute = args.object.minute;
+      alert("chang\nh:" + hour + " m:" + minute);
     }
   }
 };
